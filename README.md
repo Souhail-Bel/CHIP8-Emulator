@@ -30,8 +30,6 @@ A **fetch-execute** cycle is included with the speed under the hypothesis that t
 The OP code execution is done by referring to a LUT based on function pointers.
 Having each OP code be a function is useful for debugging.
 
-For this version, the drawing is directly done on the terminal. Future version will have the draw in an SDL2 context as well as add sound.
-
 ## Useful Resources
 [CHIP-8 - Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)
 [Tutorials - Interpreting CPU Instructions via an Array of Function Pointers](https://multigesture.net/wp-content/uploads/mirror/zenogais/FunctionPointers.htm)
