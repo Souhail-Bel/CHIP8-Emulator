@@ -57,6 +57,7 @@ typedef struct Chip8{
 	unsigned short flag_sound;
 	
 	byte gfx[DISP_S];
+	unsigned short flag_draw;
 	
 	byte keys[KEY_NUMS];
 } Chip8;

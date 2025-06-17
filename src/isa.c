@@ -67,6 +67,7 @@ void OP_0NNN(void){
 // CLS: clear display
 void OP_00E0(void){
 	memset(g_chip8.gfx, 0, DISP_S);
+	g_chip8.flag_draw = 1;
 	g_chip8.PC += 2;
 }
 
@@ -238,7 +239,8 @@ void OP_DXYN(void){
 	byte height = N;
 	int idx = 0;
 	
-	// reset collision flag
+	// Set draw flag and reset collision flag
+	g_chip8.flag_draw = 1;
 	g_chip8.V[0xF] = 0;
 	
 	for(int line_y = 0; line_y < height; line_y++)

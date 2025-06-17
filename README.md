@@ -1,7 +1,8 @@
 
-# CHIP8 Emulator
+
+# CHIP-8 Emulator ⚡
 This is a simple CHIP8 emulator made in C.
-## Running the emulator
+## Running the emulator 🚀
 Simply `make`.
 If you want to enable debug mode, simply `make debug=1`.
 
@@ -9,7 +10,7 @@ Afterwards, you can either directly run the emulator or specify a ROM to load as
 
     ./bin/chip8emu [PATH_TO_ROM]
 
-## Chip-specific features
+## Chip specifications
 * 4KB Memory (Program starts at 0x200)
 * 2-byte program counter
 * 2-byte I register
@@ -19,8 +20,8 @@ Afterwards, you can either directly run the emulator or specify a ROM to load as
 * 64x32 display
 * Hex keyboard
 
-## Code-specific features
-* Debug print triggered by **DEBUG_MODE** flag on compilation
+## Code structure
+* Debug print triggered by **DEBUG_MODE** flag upon compilation
 * Multiple possible message outputs: Error, Warning, Information
 
 The **ROM** is read through the argument passed during execution, though if none is given, it reverts back to the test featured on https://github.com/corax89/chip8-test-rom.
@@ -29,6 +30,16 @@ A **fetch-execute** cycle is included with the speed under the hypothesis that t
 
 The OP code execution is done by referring to a LUT based on function pointers.
 Having each OP code be a function is useful for debugging.
+
+**SDL2** is used for display and to handle input, which is mapped, similar to the hex keypad layout in RCA Cosmac VIP, as such:
+| | | | |->|||||
+|--|--|--|--|--|--|--|--|--|
+|1|2|3|C|->|1|2|3|4|
+|4|5|6|D|->|A|Z|E|R|
+|7|8|9|E|->|Q|S|D|F|
+|A|0|B|F|->|W|X|C|V|
+
+
 
 ## Useful Resources
 [CHIP-8 - Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)

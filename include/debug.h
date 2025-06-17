@@ -19,6 +19,6 @@ enum msgType{
 	INFORMATION
 };
 
-void writeMessage(enum msgType n, const char* msg);
+void writeMessage(enum msgType n, const char* format, ...);
 
 #endif

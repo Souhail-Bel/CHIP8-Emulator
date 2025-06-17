@@ -47,7 +47,7 @@ void loadROM(const char* rom){
 
 void cycle(){
 	// Reset flag
-	g_chip8.flag_sound = 0;
+	g_chip8.flag_sound = g_chip8.flag_draw = 0;
 	
 	// Fetch
 	word op = (g_chip8.memory[g_chip8.PC]) << 8;
