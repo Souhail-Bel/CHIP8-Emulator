@@ -13,8 +13,11 @@
 
 SDL_Window* w;
 SDL_Renderer* r;
+SDL_Event e;
+unsigned short loop;
+extern Chip8 g_chip8;
 
-void initHMI(){
+void initHMI(void){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)){
 		writeMessage(0, "SDL Initialisation Failed: %s", SDL_GetError());
 		exit(-1);
@@ -27,7 +30,22 @@ void initHMI(){
 	}
 }
 
-void updateVideo(){
+void inputHandler(void){
+	while(SDL_PollEvent(&e)){
+		if(e.type == SDL_QUIT) loop = 0;
+		else if(e.type == SDL_KEYDOWN){
+			for(int i = 0; i < KEY_NUMS; i++)
+				if(e.key.keysym.sym == KEYPAD[i])
+					g_chip8.keys[i] = 1;
+		} else if(e.type == SDL_KEYUP){
+			for(int i = 0; i < KEY_NUMS; i++)
+				if(e.key.keysym.sym == KEYPAD[i])
+					g_chip8.keys[i] = 0;
+		}
+	}
+}
+
+void updateVideo(void){
 	SDL_SetRenderDrawColor(r, BG_COL);
 	SDL_RenderClear(r);
 	SDL_SetRenderDrawColor(r, FG_COL);
@@ -41,4 +59,28 @@ void updateVideo(){
 		}
 	}
 	SDL_RenderPresent(r);
+}
+
+void closeSDL(void){
+	if(r){
+		SDL_DestroyRenderer(r);
+		r = NULL;
+	}
+	
+	if(w){
+		SDL_DestroyWindow(w);
+		w = NULL;
+	}
+	
+	SDL_Quit();
+}
+
+
+
+// NOT SO SOUND logic below
+
+
+
+void beep(void){
+	return;
 }

@@ -3,17 +3,20 @@
 #include "chip8.h"
 #include "isa.h"
 #include "hmi.h"
-#include <SDL2/SDL.h>
 
+
+#include <SDL2/SDL.h>
+#include <string.h>
 // For usleep, works only for UNIX systems :(
 #include <unistd.h>
 
 unsigned short isTest = 0;
 extern Chip8 g_chip8;
-
-int loop = 1;
+extern unsigned short loop;
 
 int main(int argc, char** argv){
+	initCHIP();
+	
 	isTest = (argc == 1);
 	
 	if(isTest){
@@ -21,34 +24,32 @@ int main(int argc, char** argv){
 		writeMessage(1, "Reverting to test ROM...");
 	}
 	
-	initCHIP();
+	loadROM(isTest ? "test/test_opcode.ch8" : argv[1]);
+	
 	
 	initHMI();
 	
-	loadROM(isTest ? "test/test_opcode.ch8" : argv[1]);
+	loop = 1;
 	
 	while(loop){
-		SDL_Event e;
-		while(SDL_PollEvent(&e)){
-			if(e.type == SDL_QUIT) loop = 0;
-			else if(e.type == SDL_KEYDOWN){
-				for(int i = 0; i < KEY_NUMS; i++)
-					if(e.key.keysym.sym == KEYPAD[i])
-						g_chip8.keys[i] = 1;
-			} else if(e.type == SDL_KEYUP){
-				for(int i = 0; i < KEY_NUMS; i++)
-					if(e.key.keysym.sym == KEYPAD[i])
-						g_chip8.keys[i] = 0;
-			}
+		cycle();
+		
+		inputHandler();
+		
+		if(g_chip8.flag_sound){
+			g_chip8.flag_sound = 0;
+			beep();
 		}
 		
-		cycle();
 		if(g_chip8.flag_draw){
 			g_chip8.flag_draw = 0;
 			updateVideo();
 		}
 		usleep(1428); //700Hz
 	}
+	
+	closeSDL();
+	dumpSTATE();
 
 	return 0;
 }

@@ -19,10 +19,12 @@ Afterwards, you can either directly run the emulator or specify a ROM to load as
 * Sound and delay timers
 * 64x32 display
 * Hex keyboard
+* beep.
 
 ## Code structure
 * Debug print triggered by **DEBUG_MODE** flag upon compilation
 * Multiple possible message outputs: Error, Warning, Information
+* Memory is dumped upon quitting for better diagnostics
 
 The **ROM** is read through the argument passed during execution, though if none is given, it reverts back to the test featured on https://github.com/corax89/chip8-test-rom.
 

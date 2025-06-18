@@ -35,7 +35,10 @@ static const uint8_t KEYPAD[KEY_NUMS] = {
 extern SDL_Window* w;
 extern SDL_Renderer* r;
 
-void initHMI();
-void updateVideo();
+void initHMI(void); // Initialize Human-Machine interface
+void inputHandler(void);
+void updateVideo(void);
+void beep(void); // this little maneuver's gonna cost us 51 years
+void closeSDL(void);
 
 #endif

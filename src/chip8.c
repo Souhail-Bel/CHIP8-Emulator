@@ -2,6 +2,7 @@
 #include "chip8.h"
 #include "isa.h"
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -44,10 +45,33 @@ void loadROM(const char* rom){
 	DEBUG_PRINT("Successfully loaded ROM: %s", rom);
 }
 
+void dumpSTATE(void){
+	const char* fileName = "mem_dump.bin";
+	FILE *f = NULL;
+	
+	f = fopen(fileName, "wb");
+	
+	if(!f){
+		writeMessage(0, "Unable to open memory dump file for writing.");
+		exit(-1);
+	}
+	
+	size_t elemsW = fwrite(g_chip8.memory, sizeof(uint8_t), MEMORY_SIZE, f);
+	
+	if(elemsW != MEMORY_SIZE){
+		writeMessage(0, "Bytes %zu/%d were written to %s", elemsW, MEMORY_SIZE, f);
+		fclose(f);
+		exit(-1);
+	}
+	
+	writeMessage(2, "Memory dumped successfully.");
+	
+	fclose(f);
+}
 
-void cycle(){
+void cycle(void){
 	// Reset flag
-	g_chip8.flag_sound = g_chip8.flag_draw = 0;
+	g_chip8.flag_sound = 0;
 	
 	// Fetch
 	word op = (g_chip8.memory[g_chip8.PC]) << 8;
@@ -55,7 +79,6 @@ void cycle(){
 	
 	// Decode & Execute
 	dex_opcode(op);
-	
 	
 	// Update delay and sound timers
 	if(g_chip8.timer_delay > 0) g_chip8.timer_delay--;

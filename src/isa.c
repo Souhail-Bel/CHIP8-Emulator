@@ -208,7 +208,8 @@ void OP_8XYE(void){
 
 // SNE Vx, Vy: Skip next instruction if Vx != Vy
 void OP_9XY0(void){
-	g_chip8.PC += 2*(1 + (g_chip8.V[X] != g_chip8.V[Y]));
+	if(g_chip8.V[X] != g_chip8.V[Y]) g_chip8.PC += 2;
+	g_chip8.PC += 2;
 	DEBUG_PRINT("SNE V%X, V%X", X, Y);
 }
 

@@ -65,7 +65,9 @@ typedef struct Chip8{
 extern Chip8 g_chip8;
 
 void initCHIP(void);
-void loadROM(const char* name);
+void loadROM(const char* rom);
+void loadSTATE(const char* state_name);
+void dumpSTATE(void);
 void cycle(void);
 
 #endif
