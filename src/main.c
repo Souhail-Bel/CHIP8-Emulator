@@ -15,6 +15,7 @@ extern Chip8 g_chip8;
 extern unsigned short loop;
 
 int main(int argc, char** argv){
+	
 	initCHIP();
 	
 	isTest = (argc == 1);
@@ -29,12 +30,14 @@ int main(int argc, char** argv){
 	
 	initHMI();
 	
+	bootBeep(); // cute lil' thing
+	
 	loop = 1;
 	
 	while(loop){
-		cycle();
-		
 		inputHandler();
+		
+		cycle();
 		
 		if(g_chip8.flag_sound){
 			g_chip8.flag_sound = 0;
@@ -45,6 +48,9 @@ int main(int argc, char** argv){
 			g_chip8.flag_draw = 0;
 			updateVideo();
 		}
+		
+		updateTimers();
+		
 		usleep(1428); //700Hz
 	}
 	

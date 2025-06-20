@@ -14,8 +14,8 @@ OBJS := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(wildcard $(SRC_DIR)/*.c))
 CC := gcc
 
 # Flags settings (Compiler and Linker)
-CFLAGS := -Wall -Wextra -pedantic -D_XOPEN_SOURCE=500 -I$(INCLUDE_DIR)
-LFLAGS := -lSDL2
+CFLAGS := -Wall -Wextra -pedantic -Wno-unused-variable -D_XOPEN_SOURCE=500 -I$(INCLUDE_DIR)
+LFLAGS := -lSDL2 -lm
 
 ifeq ($(debug), 1)
 	CFLAGS := $(CFLAGS) -g -D DEBUG_MODE

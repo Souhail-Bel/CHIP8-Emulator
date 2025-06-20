@@ -69,9 +69,24 @@ void dumpSTATE(void){
 	fclose(f);
 }
 
+void updateTimers(void) {
+    // Update timers at around 60 Hz
+    static int timer_counter = 0;
+    const int cycles_per_timer_update = 12; // 700 Hz / 60 Hz = 11.67
+    timer_counter++;
+    if(timer_counter >= cycles_per_timer_update){
+        timer_counter = 0;
+        if(g_chip8.timer_delay > 0) g_chip8.timer_delay--;
+        if(g_chip8.timer_sound > 0){
+            g_chip8.flag_sound = 1;
+            g_chip8.timer_sound--;
+        }
+    }
+}
+
 void cycle(void){
 	// Reset flag
-	g_chip8.flag_sound = 0;
+	//g_chip8.flag_sound = 0;
 	
 	// Fetch
 	word op = (g_chip8.memory[g_chip8.PC]) << 8;
@@ -79,13 +94,6 @@ void cycle(void){
 	
 	// Decode & Execute
 	dex_opcode(op);
-	
-	// Update delay and sound timers
-	if(g_chip8.timer_delay > 0) g_chip8.timer_delay--;
-	if(g_chip8.timer_sound > 0){
-		g_chip8.flag_sound = 1;
-		g_chip8.timer_sound--;
-	}
 }
 
 /*

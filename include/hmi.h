@@ -36,8 +36,10 @@ extern SDL_Window* w;
 extern SDL_Renderer* r;
 
 void initHMI(void); // Initialize Human-Machine interface
+void audioCallback(void* userdata, uint8_t* stream, int len);
 void inputHandler(void);
 void updateVideo(void);
+void bootBeep(void);
 void beep(void); // this little maneuver's gonna cost us 51 years
 void closeSDL(void);
 

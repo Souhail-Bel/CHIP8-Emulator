@@ -24,6 +24,7 @@
 typedef uint8_t byte;
 typedef uint16_t word;
 
+
 static byte font[FONT_SIZE] = {
 	0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
 	0x20, 0x60, 0x20, 0x20, 0x70, // 1
@@ -66,8 +67,8 @@ extern Chip8 g_chip8;
 
 void initCHIP(void);
 void loadROM(const char* rom);
-void loadSTATE(const char* state_name);
 void dumpSTATE(void);
+void updateTimers(void);
 void cycle(void);
 
 #endif
