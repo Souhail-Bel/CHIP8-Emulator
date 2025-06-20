@@ -1,7 +1,7 @@
 
 
 # CHIP-8 Emulator ⚡
-This is a simple CHIP8 emulator made in C.
+This is a simple CHIP8 emulator made in C as shown in [this video](https://www.youtube.com/watch?v=I1i_kN5uqwA).
 ## Running the emulator 🚀
 Simply `make`.
 If you want to enable debug mode, simply `make debug=1`.
